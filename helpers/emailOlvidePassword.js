@@ -1,14 +1,20 @@
 import nodemailer from 'nodemailer'
 
 const emailOlvidePassword = async (datos) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  })
+  // const transporter = nodemailer.createTransport({
+  //   host: process.env.EMAIL_HOST,
+  //   port: process.env.EMAIL_PORT,
+  //   auth: {
+  //     user: process.env.EMAIL_USER,
+  //     pass: process.env.EMAIL_PASS
+  //   }
+  // })
+
+  const transporter = nodemailer.createTransport(
+    nodemailerSendgrid({
+      apiKey: process.env.SENDGRID_API_KEY
+    })
+  )
 
   const { email, nombre, token } = datos
 
